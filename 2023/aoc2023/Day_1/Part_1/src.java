@@ -24,7 +24,7 @@ public class src {
 		System.out.println("Running Advent of Code Day 1, Challenge No. 1...");
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
         
-        // Read the calibration document in whole (~23KB) and process each line independently.
+        // Read the calibration document in whole (~23KB) and process each line sequentially.
         try {
         	Integer calibrationTotal = 0; 
         	Path doc = Paths.get("./aoc2023/Day_1/calibration/calibration.txt");
@@ -44,6 +44,7 @@ public class src {
 	
 	// method getCalibrationData returns the Calibration value for each line of the whole Calibration Document.
 	// Each return value will consist of two digits between 11 and 99.
+	// A 'Digit' refers to any numeric representation of an integer, such as '6' and '7'.
 	// The return value is formed by taking the first and last digit within the line.
 	// If only a single digit is found from the string, then the same digit is reused to form a double-digit number.
 	private static int getCalibrationData(String line) {
