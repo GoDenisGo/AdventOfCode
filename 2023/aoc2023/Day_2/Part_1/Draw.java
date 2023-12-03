@@ -21,7 +21,7 @@ public class Draw {
 		this.blue = blue;
 	}
 	
-	// method compareDraw compares the each attribute to the maxDraw.
+	// method compareDraw compares each attribute to the maxDraw attributes.
 	// Returns false if any attribute is larger than the maxDraw,
 	// otherwise it returns true.
 	public boolean compareDraw(Draw maxDraw) {
