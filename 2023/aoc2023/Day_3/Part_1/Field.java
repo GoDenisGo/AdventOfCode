@@ -18,7 +18,10 @@ public class Field {
 	
 	// method adjacentToSymbol checks if a symbol was found for any of the fields of the class.
 	public Boolean adjacentToSymbol() {
-		String pattern = "([.]+[-*@+$=/&%]+)|([.]+\\d*[-*@+$=/&%]+)|([-*@+$=/&%]+[\\d.]*)";		
+		String pattern = "([.]+[-*@+$=/&%]+)|([.]+\\d*[-*@+$=/&%]+)|([-*@+$=/&%]+[\\d.]*)";	
+		System.out.println("\n" + this.previousLine);
+		System.out.println(this.currentLine);
+		System.out.println(this.nextLine + "\n");
 		return checkField(pattern, this.currentLine) || checkField(pattern, this.previousLine) || 
 				checkField(pattern, this.nextLine);
 	}

@@ -42,9 +42,9 @@ public class Secondsrc {
 		
 		// index over file
 		// i = 1 because we padded the file on all sides
-		for (Integer i = 1; i < lines.size() - 2; i++) {
+		for (Integer i = 1; i < lines.size() - 1; i++) {
 			String currentLine = lines.get(i);
-			System.out.println(currentLine);
+			// System.out.println(currentLine);
 			
 			// lineIndex tracks the current character at each line.
 			// lineIndex begins at one because the previous element is
@@ -63,20 +63,21 @@ public class Secondsrc {
 					continue;
 				}
 				
-				System.out.println("Current number is: " + currentLineSegment[0]);
+				// System.out.println("Current number is: " + currentLineSegment[0]);
 				
 				// segments of the surrounding lines that are between the bounds of the number.
 				String previousLineSemgent = getLineSegment(
 						lines.get(i - 1), 
-						currentLineSegment[1], 
+						lineIndex + currentLineSegment[1], 
 						currentLineSegment[2]);
 				String nextLineSegment = getLineSegment(
 						lines.get(i + 1),
-						currentLineSegment[1],
+						lineIndex + currentLineSegment[1],
 						currentLineSegment[2]);
 				
 				// determine if the number is adjacent to another string
-				Boolean symbolFound = new Field(currentLine, previousLineSemgent, nextLineSegment).adjacentToSymbol();
+				// TODO: Think about how the currentLine influences the scores ... 
+				Boolean symbolFound = new Field(currentLine.substring(lineIndex + currentLineSegment[1] - 1, lineIndex + currentLineSegment[1] + currentLineSegment[2] + 1), previousLineSemgent, nextLineSegment).adjacentToSymbol();
 								
 				if (symbolFound) {
 					total += currentLineSegment[0];
@@ -85,7 +86,7 @@ public class Secondsrc {
 				lineIndex += currentLineSegment[0].toString().length();
 			}
 			
-			System.out.println("");
+			System.out.println("Total is: " + total + "\n");
 		}
 		
 		return total;
@@ -118,7 +119,7 @@ public class Secondsrc {
 	// method getLineSegment returns a substring using the start index minus one,
 	// and the end index plus one.
 	public static String getLineSegment(String line, Integer startIndex, Integer endIndex) {
-		return line.substring(startIndex, startIndex + endIndex + 2);
+		return line.substring(startIndex - 1, startIndex + endIndex + 1);
 	}
 	
 	// method padFile surrounds the List data with invalid symbols
