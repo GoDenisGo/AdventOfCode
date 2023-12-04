@@ -1,6 +1,8 @@
 package aoc2023.Day_3.Part_1;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,6 +24,10 @@ public class Secondsrc {
 	public static void main(String[] args) {
 		System.out.println("Attempting Day 3, Part 1...");
 		try {
+			File logs = new File("./aoc2023/Day_3/log/log.txt");
+			PrintStream stream = new PrintStream(logs);
+			System.setOut(stream);
+			
 			Integer total = partTotal();
 			System.out.println("\nTotal is: '" + total + "'.");
 		} catch (IOException e) {
@@ -78,7 +84,8 @@ public class Secondsrc {
 				// determine if the number is adjacent to another string
 				// TODO: Think about how the currentLine influences the scores ... 
 				Boolean symbolFound = new Field(currentLine.substring(lineIndex + currentLineSegment[1] - 1, lineIndex + currentLineSegment[1] + currentLineSegment[2] + 1), previousLineSemgent, nextLineSegment).adjacentToSymbol();
-								
+					
+				// TODO: think about how the elements are being totalled
 				if (symbolFound) {
 					total += currentLineSegment[0];
 				}
