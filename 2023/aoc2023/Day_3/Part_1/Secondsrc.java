@@ -1,6 +1,8 @@
 package aoc2023.Day_3.Part_1;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
@@ -28,9 +30,7 @@ import java.util.regex.Pattern;
 // carefully. My first attempt, which is in another file, looks very similar to the solution in this
 // file, but I didn't commit it in case I catch someone in the eyes with it; unnecessary variables
 // littered throughout, no abstraction and even my mind-set, when working on the previous file, was not
-// as professional as it should have been. Just imagine getting given a problem to solve at work, wherein
-// you become 'emotional' because you haven't addressed the problem formally. This is the mistake I made which
-// resulted in lots of time being wasted and logical inaccuracies being introduced into my work.
+// as professional as it should have been. I should have adjusted my pace before attempting the solution.
 //    My evolution from this behaviour is to take more time to read the problem carefully, understand the
 // restrictions, and examine my plan thoroughly. This problem felt largely overwhelming because I was unable
 // to parse through the strings in a coherent manner.
@@ -97,6 +97,10 @@ public class Secondsrc {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+		
+		// Letting the user know the program has terminated.		
+		System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
+		System.out.println("Program finished.\nPlease check the log file for the result.");
 	}
 	
 	// method partTotal returns the total value of every valid part number.
@@ -112,6 +116,7 @@ public class Secondsrc {
 		
 		// index over file
 		// i = 1 because we padded the file on all sides
+		// We only need to subtract 1 because we begin at 1 already.
 		for (Integer i = 1; i < lines.size() - 1; i++) {			
 			total += addParts(lines.get(i), lines.get(i - 1), lines.get(i + 1));
 			
@@ -129,11 +134,11 @@ public class Secondsrc {
 		while (lineIndex < currentLine.length() - 2) {
 			// find a number and its start index
 			Integer[] numberBoundaries = findNumber(currentLine, lineIndex);
-			String numberString = numberBoundaries[0].toString();
 			if (numberBoundaries[0] == -1) {
 				lineIndex = currentLine.length();
 				continue;
 			}
+			String numberString = numberBoundaries[0].toString();
 
 			String currentLineSegment = currentLine.charAt(
 					lineIndex + numberBoundaries[1] - 1) + 
@@ -160,14 +165,15 @@ public class Secondsrc {
 		return total;
 	}
 	
-	// findNumber returns the starting index and ending index of the first 
-	// number in the segment after the specified index. Will return -1 if 
-	// no more numbers exist within the segment.
-	public static Integer[] findNumber(String segment, Integer index) {
+	// findNumber returns the number and its starting index,
+	// from the input line. Will return -1 if no more numbers 
+	// exist within the segment. Searches return only
+	// the numbers after the given index.
+	public static Integer[] findNumber(String line, Integer index) {
 		Integer number = -1;
 		Integer startIndex = -1;
-		segment = segment.substring(index);
-		System.out.println("The segment is: '" + segment + "'.");
+		String segment = line.substring(index);
+		System.out.println("The segment is: '" + line + "'.");
 		
 		Pattern p = Pattern.compile("\\d+");
 		Matcher pMatch = p.matcher(segment);
