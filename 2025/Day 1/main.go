@@ -52,8 +52,8 @@ func main() {
 		dial = Over(dial)
 		dial = Under(dial)
 
-		if dial > 99 {
-			fmt.Println(dial)
+		if dial > 99 || dial < 0 {
+			log.Fatalf("Dial value is %v. Dial should not exceed 0 <= dial <= 99 ", dial)
 		}
 
 		if dial == 0 {
