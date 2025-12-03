@@ -8,8 +8,7 @@ Made for Advent of Code 2025, this is not a full implementation of the data stru
 */
 
 /*
-Type DoublyCircularLinkedList is used for simulating a virtual dial by setting point 0 as the head and 99 as the
-tail.
+Type DoublyCircularLinkedList is used for simulating a virtual dial.
 */
 type DoublyCircularLinkedList struct {
 	Head   *Node
