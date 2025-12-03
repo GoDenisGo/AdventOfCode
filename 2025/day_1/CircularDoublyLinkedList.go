@@ -1,7 +1,5 @@
 package main
 
-import "log"
-
 /*
 File CircularDoublyLinkedList.go implements a Doubly Circular Linked List.
 Made for Advent of Code 2025, this is not a full implementation of the data structures and methods.
@@ -37,29 +35,4 @@ func (cl *CircularDoublyLinkedList) InsertBeginning(n *Node) {
 		cl.Head.Left = cl.Tail
 	}
 	cl.Length++
-}
-
-/*
-Find searches for a Node whose Index is equal to i and returns it.
-Crashes with log.Fatal if the Linked List is empty.
-*/
-func (cl *CircularDoublyLinkedList) Find(i int) *Node {
-	if cl.Head == nil {
-		log.Fatal("Linked list is empty!")
-		return nil
-	}
-
-	if cl.Head.Index == i {
-		return cl.Head
-	}
-
-	h := cl.Head
-	for h.Right != cl.Head {
-		h = h.Right
-		if h.Index == i {
-			return h
-		}
-	}
-
-	return nil
 }
