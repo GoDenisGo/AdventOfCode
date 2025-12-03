@@ -30,10 +30,11 @@ func (cl *CircularDoublyLinkedList) InsertBeginning(n *Node) {
 		cl.Tail = cl.Head
 		n.Right = cl.Head
 	} else {
-		cl.Head.Left = n // Previous node will point to new node.
+		cl.Head.Left = n
 		n.Right = cl.Head
 		cl.Head = n
 		cl.Tail.Right = cl.Head
+		cl.Head.Left = cl.Tail
 	}
 	cl.Length++
 }
