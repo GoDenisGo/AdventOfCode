@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-// Pakcage main represents Day 1 of AOC, 2025.
+// Package main represents Day 1 of AOC, 2025.
 // File input-1.txt contains a list of dial instructions.
 // The dial turns R or L by a certain amount based on the list.
 // The dial only has numbers 0 - 99, going below 0 wraps back to 99 and vice-versa.
