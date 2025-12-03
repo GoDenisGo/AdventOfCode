@@ -14,7 +14,6 @@ import (
 // The dial only has numbers 0 - 99, going below 0 wraps back to 99 and vice-versa.
 // We need to count the amount of time the dial hits 0.
 //
-// I purposefully avoided the remainder operator (n +or- 100) % 100 because my objective was to have fun here.
 // If you want to run this code yourself, download the input file for Day 1 Part 1 and rename it to input-1.txt.
 func main() {
 	fmt.Println("AOC 2025 - Day 1!")
@@ -35,8 +34,6 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			num = Over(num)
-			// dial = dial + num % 100 // Don't need Over if remainder (%) operator is used
 			dial += num
 		} else {
 			// subtract
@@ -44,7 +41,6 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			num = Over(num)
 			dial -= num
 		}
 
