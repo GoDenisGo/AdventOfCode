@@ -17,7 +17,15 @@ import (
 // If you want to run this code yourself, download the input file for Day 1 Part 1 and rename it to input-1.txt.
 func main() {
 	fmt.Println("AOC 2025 - Day 1!")
-	dial := 50
+
+	d := CircularDoublyLinkedList{Length: 100}
+	for i := 99; i > -1; i-- {
+		d.InsertBeginning(&Node{Index: i})
+	}
+	p := d.Head
+	for range 50 {
+		p = p.Right
+	}
 	count := 0
 
 	file, err := os.Open("input-1.txt")
@@ -30,34 +38,26 @@ func main() {
 	for _, line := range lines {
 		if string(line[0]) == "R" {
 			// Turn the dial right.
-			num, err := strconv.Atoi(line[1:])
+			r, err := strconv.Atoi(line[1:])
 			if err != nil {
 				log.Fatal(err)
 			}
-			dial += num
+			p = Right(p, r)
 		} else {
 			// Turn the dial left.
-			num, err := strconv.Atoi(line[1:])
+			l, err := strconv.Atoi(line[1:])
 			if err != nil {
 				log.Fatal(err)
 			}
-			dial -= num
+			p = Left(p, l)
 		}
 
-		// Var "dial" could be outside the range [0,99] which isn't legal in this puzzle.
-		dial = Over(dial)
-		dial = Under(dial)
-
-		if dial > 99 || dial < 0 {
-			log.Fatalf("Dial value is %v. Dial should not exceed 0 <= dial <= 99 ", dial)
-		}
-
-		if dial == 0 {
-			count += 1
+		if p.Index == 0 {
+			count++
 		}
 	}
 
-	fmt.Println(count)
+	fmt.Printf("Number of times zero was pointed at: %d.\n", count)
 }
 
 func getLines(f *os.File) []string {
@@ -75,18 +75,16 @@ func getLines(f *os.File) []string {
 	return lines
 }
 
-// Over subtracts 100 from n until 0 <= n <= 99.
-func Over(n int) int {
-	if n > 99 {
-		n = Over(n - 100)
+func Right(p *Node, n int) *Node {
+	for range n {
+		p = p.Right
 	}
-	return n
+	return p
 }
 
-// Under adds 100 to n until 0 <= n <= 99.
-func Under(n int) int {
-	if n < 0 {
-		n = Under(n + 100)
+func Left(p *Node, n int) *Node {
+	for range n {
+		p = p.Left
 	}
-	return n
+	return p
 }
