@@ -29,14 +29,14 @@ func main() {
 	lines := getLines(file)
 	for _, line := range lines {
 		if string(line[0]) == "R" {
-			// add
+			// Turn the dial right.
 			num, err := strconv.Atoi(line[1:])
 			if err != nil {
 				log.Fatal(err)
 			}
 			dial += num
 		} else {
-			// subtract
+			// Turn the dial left.
 			num, err := strconv.Atoi(line[1:])
 			if err != nil {
 				log.Fatal(err)
@@ -44,7 +44,7 @@ func main() {
 			dial -= num
 		}
 
-		// Var "dial" could be Over or Under which isn't legal in this puzzle.
+		// Var "dial" could be outside the range [0,99] which isn't legal in this puzzle.
 		dial = Over(dial)
 		dial = Under(dial)
 
