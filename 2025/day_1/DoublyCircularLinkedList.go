@@ -45,16 +45,17 @@ Crashes with log.Fatal if the Linked List is empty.
 func (cl *DoublyCircularLinkedList) Find(i int) *Node {
 	if cl.Head == nil {
 		log.Fatal("Linked list is empty!")
+		return nil
+	}
+
+	if cl.Head.Index == i {
+		return cl.Head
 	} else {
-		if cl.Head.Index == i {
-			return cl.Head
-		} else {
-			h := cl.Head
-			for h.Right != cl.Head {
-				h = h.Right
-				if h.Index == i {
-					return h
-				}
+		h := cl.Head
+		for h.Right != cl.Head {
+			h = h.Right
+			if h.Index == i {
+				return h
 			}
 		}
 	}
