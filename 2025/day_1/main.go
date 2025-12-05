@@ -20,7 +20,7 @@ If you want to run this code yourself, download the input file for Day 1 Part 1 
 func main() {
 	fmt.Println("AOC 2025 - Day 1!")
 
-	d := CircularDoublyLinkedList{Length: 100}
+	d := CircularDoublyLinkedList{}
 	for i := 99; i > -1; i-- {
 		d.InsertBeginning(&Node{Index: i})
 	}

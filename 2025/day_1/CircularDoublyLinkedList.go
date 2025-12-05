@@ -9,9 +9,8 @@ Made for Advent of Code 2025, this is not a full implementation of the data stru
 Type CircularDoublyLinkedList is used for simulating a virtual dial.
 */
 type CircularDoublyLinkedList struct {
-	Head   *Node
-	Tail   *Node
-	Length int
+	Head *Node
+	Tail *Node
 }
 
 // Type Node represents its point on a virtual dial using Index as its value.
@@ -34,5 +33,4 @@ func (cl *CircularDoublyLinkedList) InsertBeginning(n *Node) {
 		cl.Tail.Right = cl.Head
 		cl.Head.Left = cl.Tail
 	}
-	cl.Length++
 }
