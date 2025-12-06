@@ -1,7 +1,7 @@
 package main
 
 /*
-File CircularDoublyLinkedList.go implements a Doubly Circular Linked List.
+File CircularDoublyLinkedList.go implements a Circular Doubly Linked List.
 Made for Advent of Code 2025, this is not a full implementation of the data structures and methods.
 */
 
