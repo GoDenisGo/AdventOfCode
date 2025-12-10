@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// TODO: Optimise code.
 func main() {
 	// IMPORTANT NOTICE: If you copied this program from VCS, please copy your input text into i as a str.
 	i := ""
@@ -32,23 +33,55 @@ func checkId(s [][]string) int64 {
 		if err != nil {
 			log.Fatalf("Tried to convert %v (type %T) to int64.", v[1], v[1])
 		}
+		for i := min; i <= max; i++ {
+			valid := true
+			n := strconv.FormatInt(i, 10) // Conv i to string.
+			// Check IDs with an even length.
+			valid = compareSubstrings(n)
 
-		for i := min; i < max; i++ {
-			n := strconv.FormatInt(i, 10)
-			/*
-				Optimisation: we can ignore odd-length numbers because they would never be valid.
-				Optimisation: we only have to split the numbers in half and compare them.
-			*/
-			if (len(n) % 2) == 0 {
-				m := len(n) / 2
-				left := n[:m]
-				right := n[m:]
-				if left == right {
-					counter += i
-				}
+			if valid {
+				counter += i
+				fmt.Println(i)
 			}
+
+			valid = true
 		}
 	}
 
 	return counter
+}
+
+func compareSubstrings(n string) bool {
+	valid := true
+	// We init j at 1 because we don't want to test the IDs starting with a nil string.
+	for j := 1; j < len(n); j++ {
+		left := n[:j]
+		right := n[j:]
+		/*
+			We check if the sequence of digits is a valid size.
+			E.g. left = "123" and right = "4" then you know the final sequence is invalid.
+			Thought experiment: We could also tally the unique digits in var left.
+								If there is a digit not in left then maybe we can discard
+								the current number early...
+		*/
+		if (len(right) % len(left)) == 0 {
+			// We divide right into chunks of size len(left).
+			r := []string{}
+			for k := 0; k < len(right); k += len(left) {
+				r = append(r, right[k:k+len(left)])
+			}
+
+			for k := range r {
+				if left != r[k] {
+					valid = false
+				}
+			}
+
+			if valid {
+				return valid
+			}
+		}
+		valid = true
+	}
+	return false
 }
