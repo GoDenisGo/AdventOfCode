@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"log"
 	"os"
@@ -45,26 +46,34 @@ func getLines(f *os.File) []string {
 }
 
 func findBatteries(s string) string {
-	var ja byte
-	var jai int = 1000
-	var jb byte
-	var jbi int = 1000
-	for i := range s {
-		if s[i] > ja {
-			jb = ja
-			jbi = jai
-			ja = s[i]
-			jai = i
-		} else if s[i] >= jb || i > jai && jbi < jai {
-			jb = s[i]
-			jbi = i
-		}
-	}
-	if jai == (len(s) - 1) {
-		tempj := ja
-		ja = jb
-		jb = tempj
+	p := 0
+	e := 11
+	b := []byte{}
+	for range 12 {
+		w := s[p : len(s)-e]
+		j, ji := chooseBiggest(w)
+		b = append(b, j)
+		p += (ji + 1)
+		e--
 	}
 
-	return string([]byte{ja, jb})
+	return string(b)
+
+}
+
+func chooseBiggest(s string) (byte, int) {
+	var j byte
+	var ji int
+	for i := range s {
+		if j < s[i] {
+			j = s[i]
+			ji = i
+		}
+
+		if bytes.Equal([]byte{j}, []byte("9")) {
+			return j, ji
+		}
+	}
+
+	return j, ji
 }
