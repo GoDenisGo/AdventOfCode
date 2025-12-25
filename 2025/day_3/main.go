@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-// Advent of Code Day 3, Part 1.
+// Advent of Code Day 3, Part 2.
 func main() {
 	var joltage int64
 	file, err := os.Open("input-3.txt")
