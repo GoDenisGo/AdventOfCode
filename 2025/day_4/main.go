@@ -28,7 +28,7 @@ func main() {
 
 	/*
 		Solve puzzle.
-		Variable "i" is our current line, "j" is our current co-ordinate.
+		Variable "i" is our current column, "j" is our current row.
 	*/
 	for i := 1; i < (len(m) - 1); i++ {
 		s := m[i]
