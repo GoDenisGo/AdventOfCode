@@ -37,14 +37,10 @@ func main() {
 			if string(s[j]) == "@" {
 				prev := m[i-1]
 				rc := 8
-				rc -= tl(prev, j)
-				rc -= tm(prev, j)
-				rc -= tr(prev, j)
+				rc -= top(prev, j)
 				rc -= ml(s, j)
 				rc -= mr(s, j)
-				rc -= bl(next, j)
-				rc -= bm(next, j)
-				rc -= br(next, j)
+				rc -= bottom(next, j)
 
 				if rc > 4 {
 					c++
@@ -71,25 +67,16 @@ func getLines(f *os.File) []string {
 	return lines
 }
 
-func tl(p string, i int) int {
-	if string(p[i-1]) == "@" {
-		return 1
+func top(p string, i int) int {
+	pos := i - 1
+	c := 0
+	for range 3 {
+		if string(p[pos]) == "@" {
+			c++
+		}
+		pos++
 	}
-	return 0
-}
-
-func tm(p string, i int) int {
-	if string(p[i]) == "@" {
-		return 1
-	}
-	return 0
-}
-
-func tr(p string, i int) int {
-	if string(p[i+1]) == "@" {
-		return 1
-	}
-	return 0
+	return c
 }
 
 func ml(c string, i int) int {
@@ -106,23 +93,14 @@ func mr(c string, i int) int {
 	return 0
 }
 
-func bl(n string, i int) int {
-	if string(n[i-1]) == "@" {
-		return 1
+func bottom(n string, i int) int {
+	pos := i - 1
+	c := 0
+	for range 3 {
+		if string(n[pos]) == "@" {
+			c++
+		}
+		pos++
 	}
-	return 0
-}
-
-func bm(n string, i int) int {
-	if string(n[i]) == "@" {
-		return 1
-	}
-	return 0
-}
-
-func br(n string, i int) int {
-	if string(n[i+1]) == "@" {
-		return 1
-	}
-	return 0
+	return c
 }
