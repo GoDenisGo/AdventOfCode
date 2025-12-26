@@ -6,7 +6,29 @@ import (
 	"os"
 )
 
-// Advent of Code Day 4, Part 1.
+/*
+Advent of Code Day 4, Part 1.
+The TXT file was padded to include empty elements in order to simplify the problem.
+This would look like:
+
+	........
+	.@@.@@.@
+	........
+
+The program then adds additional "." to both sides of every line in order to complete the padding.
+This would look like:
+
+	..........
+	..@@.@@.@.
+	..........
+
+Now we start our list indexing from (1,1) in and end at len() - 1 for both x and y co-ordinates.
+The start and end indexes would look like (marked with Xs):
+
+	..........
+	.X@@.@@.X.
+	..........
+*/
 func main() {
 	c := 0
 	m := []string{}
